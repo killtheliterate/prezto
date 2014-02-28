@@ -1,14 +1,70 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# chruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+chruby ruby-2.0
 
+# homebrew
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+# VirtualBox & Vagrant
+PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS
+
+# vim is the editor
+export EDITOR='vi'
+
+# export PATH
+export PATH
+
+# shell
+export SHELL=/bin/zsh
+
+# Aliases
+alias hiddenon='defaults write com.apple.finder AppleShowAllFiles -boolean true'
+alias hiddenoff='defaults delete com.apple.finder AppleShowAllFiles'
+alias dedupe="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+alias 755="find . -type d -print0 | xargs -0 chmod 0755"
+alias 644="find . -type f -print0 | xargs -0 chmod 0644"
+alias dot_cleaner="sudo find / -name ".DS_Store" -depth -exec rm {} \; && dot_clean ~/"
+alias maintenance='sudo periodic daily weekly monthly'
+alias clear='figlet -f colossal "CTRL - L IDIOT"'
+alias dirs='dirs -v'
+
+# Tmux
+alias tmux="tmux -2"
+alias layout=''
+
+# SSH
+alias ssh='TERM=xterm ssh'
+
+# vim
+alias vi='mvim -v'
+
+# Bundler
+alias bcw='bundle exec compass watch'
+alias beg='bundle exec guard'
+alias bcwc='bundle exec compass compile --force'
+
+# LS
+alias ls='ls --color=auto'
+alias ll='ls -larth --color=auto'
+
+# Compass
+alias cwc='compass compile --force'
+alias cw='compass watch'
+
+# Vagrant
+alias vu="vagrant up"
+alias vd="vagrant destroy"
+alias vh="vagrant halt"
+alias vr="vagrant reload"
+alias vst="vagrant status"
+alias vs="vagrant ssh"
+alias vp="vagrant provision"
+alias vssh='TERM=xterm vagrant ssh'
+
+# unsetopt auto_pushd
