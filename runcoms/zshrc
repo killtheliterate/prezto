@@ -20,10 +20,32 @@ export EDITOR='vi'
 # export PATH
 export PATH
 
+# export MANPATH WHY IS THIS ALL FUCKED UP BDSF:SDFSK:DFSKDFSDF
+# MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+# MANPATH=$MANPATH:/usr/share/man
+# MANPATH="$(brew --prefix)/share/man:$MANPATH"
+#
+# export MANPATH
+
+
 # shell
 export SHELL=/bin/zsh
 
+# vim
+bindkey '^R' history-incremental-search-backward
+bindkey '^S' history-incremental-search-forward
+bindkey '^P' history-search-backward
+bindkey '^N' history-search-forward
+bindkey 'jk' vi-cmd-mode
+
+# less
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
+export LESS=" -R"
+
+#
 # Aliases
+#
+
 alias hiddenon='defaults write com.apple.finder AppleShowAllFiles -boolean true'
 alias hiddenoff='defaults delete com.apple.finder AppleShowAllFiles'
 alias dedupe="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
@@ -50,8 +72,8 @@ alias beg='bundle exec guard'
 alias bcwc='bundle exec compass compile --force'
 
 # LS
-alias ls='ls --color=auto'
-alias ll='ls -larth --color=auto'
+# alias ls='ls --color=auto'
+# alias ll='ls -larth --color=auto'
 
 # Compass
 alias cwc='compass compile --force'
