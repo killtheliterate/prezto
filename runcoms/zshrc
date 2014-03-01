@@ -20,12 +20,12 @@ export EDITOR='vi'
 # export PATH
 export PATH
 
-# export MANPATH WHY IS THIS ALL FUCKED UP BDSF:SDFSK:DFSKDFSDF
-# MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
-# MANPATH=$MANPATH:/usr/share/man
-# MANPATH="$(brew --prefix)/share/man:$MANPATH"
-#
 # export MANPATH
+# also, $MANPATH is totally fucked up when using tmux. /usr/local/share/man 
+# and /usr/share/man aren't in the path. (rage)
+MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+
+export MANPATH
 
 
 # shell
@@ -57,8 +57,8 @@ alias clear='figlet -f colossal "CTRL - L IDIOT"'
 alias dirs='dirs -v'
 
 # Tmux
-alias tmux="tmux -2"
-alias layout=''
+# alias tmux="tmux -2"
+# alias layout=''
 
 # SSH
 alias ssh='TERM=xterm ssh'
