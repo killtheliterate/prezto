@@ -90,3 +90,6 @@ alias vp="vagrant provision"
 alias vssh='TERM=xterm vagrant ssh'
 
 # unsetopt auto_pushd
+function ssht(){
+  ssh $* -t 'tmux a || tmux || /bin/bash'
+}
