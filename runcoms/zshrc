@@ -15,7 +15,7 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS
 
 # vim is the editor
-export EDITOR='vi'
+export EDITOR='vim'
 
 # export PATH
 export PATH
@@ -57,8 +57,6 @@ alias clear='figlet -f colossal "CTRL - L IDIOT"'
 alias dirs='dirs -v'
 
 # Tmux
-# alias tmux="tmux -2"
-# alias layout=''
 
 # SSH
 alias ssh='TERM=xterm ssh'
@@ -92,4 +90,9 @@ alias vssh='TERM=xterm vagrant ssh'
 # unsetopt auto_pushd
 function ssht(){
   ssh $* -t 'tmux a || tmux || /bin/bash'
+}
+
+function voff() {
+  DATVM=`VBoxManage list runningvms | awk '{gsub(/"/, "", $1); print $1}'`
+  VBoxManage controlvm $DATVM poweroff 
 }
