@@ -6,13 +6,13 @@ fi
 # chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby ruby-2.0
+chruby ruby-2.1.2
 
 # homebrew
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # VirtualBox & Vagrant
-PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS
+# PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS
 
 # vim is the editor
 export EDITOR='vim'
@@ -26,7 +26,6 @@ export PATH
 MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
 
 export MANPATH
-
 
 # shell
 export SHELL=/bin/zsh
@@ -42,6 +41,9 @@ bindkey 'jk' vi-cmd-mode
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS=" -R"
 
+# Cholores
+eval `dircolors ~/.dir_colors`
+
 #
 # Aliases
 #
@@ -53,7 +55,6 @@ alias 755="find . -type d -print0 | xargs -0 chmod 0755"
 alias 644="find . -type f -print0 | xargs -0 chmod 0644"
 alias dot_cleaner="sudo find / -name ".DS_Store" -depth -exec rm {} \; && dot_clean ~/"
 alias maintenance='sudo periodic daily weekly monthly'
-alias clear='figlet -f colossal "CTRL - L IDIOT"'
 alias dirs='dirs -v'
 
 # Tmux
