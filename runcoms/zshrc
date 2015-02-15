@@ -17,11 +17,11 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 # Composer
 PATH=$HOME/.composer/vendor/bin:$PATH
 
+# Cabal
+PATH=$HOME/.cabal/bin:$PATH
+
 # vim is the editor
 export EDITOR='vim'
-
-# Cabal
-PATH=~/.cabal/bin:$PATH
 
 # export PATH
 export PATH
