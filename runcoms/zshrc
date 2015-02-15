@@ -15,10 +15,10 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 # PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS
 
 # Composer
-PATH=$HOME/.composer/vendor/bin:$PATH
+PATH=$PATH:$HOME/.composer/vendor/bin
 
 # Cabal
-PATH=$HOME/.cabal/bin:$PATH
+PATH=$PATH:$HOME/.cabal/bin
 
 # vim is the editor
 export EDITOR='vim'
