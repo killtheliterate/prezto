@@ -20,6 +20,9 @@ PATH=$HOME/.composer/vendor/bin:$PATH
 # vim is the editor
 export EDITOR='vim'
 
+# Cabal
+PATH=~/.cabal/bin:$PATH
+
 # export PATH
 export PATH
 
@@ -33,12 +36,16 @@ export MANPATH
 # shell
 export SHELL=/bin/zsh
 
+# Java
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+
 # vim
 bindkey '^R' history-incremental-search-backward
 bindkey '^S' history-incremental-search-forward
 bindkey '^P' history-search-backward
 bindkey '^N' history-search-forward
 bindkey 'jk' vi-cmd-mode
+
 
 # less
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
@@ -100,3 +107,5 @@ function voff() {
   DATVM=`VBoxManage list runningvms | awk '{gsub(/"/, "", $1); print $1}'`
   VBoxManage controlvm $DATVM poweroff 
 }
+
+alias ag="ag --pager 'less -R'"
