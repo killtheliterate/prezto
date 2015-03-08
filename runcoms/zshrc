@@ -37,7 +37,7 @@ export MANPATH
 export SHELL=/bin/zsh
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+# export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 # vim
 bindkey '^R' history-incremental-search-backward
