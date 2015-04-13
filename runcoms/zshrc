@@ -14,17 +14,24 @@ export DOCKER_HOST=tcp://$bootip:2376
 export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
 # homebrew
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # VirtualBox & Vagrant
 # PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS
 
-# vim is the editor
-export EDITOR='vim'
+# Composer
+PATH=$PATH:$HOME/.composer/vendor/bin
 
 # Cabal
-PATH=$HOME/.cabal/bin:$PATH
+PATH=$PATH:$HOME/.cabal/bin
+
+# vim is the editor
+# export EDITOR='vim'
 
 # export PATH
 export PATH
@@ -43,7 +50,7 @@ export SHELL=/bin/zsh
 KEYTIMEOUT=1
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+# export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 # vim
 bindkey '^R' history-incremental-search-backward
@@ -95,3 +102,4 @@ function voff() {
 
 # the silver searcher
 alias ag="ag --pager 'less -R'"
+
