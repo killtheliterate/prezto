@@ -100,6 +100,10 @@ function voff() {
   VBoxManage controlvm $DATVM poweroff 
 }
 
+if [ $USER = "garrett" ]; then
+    ulimit -n 2048
+fi
+
 # the silver searcher
 alias ag="ag --pager 'less -R'"
 
