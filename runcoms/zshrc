@@ -31,7 +31,7 @@ PATH=$PATH:$HOME/.composer/vendor/bin
 PATH=$PATH:$HOME/.cabal/bin
 
 # vim is the editor
-# export EDITOR='vim'
+export EDITOR='nvim'
 
 # export PATH
 export PATH
@@ -65,7 +65,7 @@ export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS=" -R"
 
 # Cholores
-eval `dircolors ~/.dir_colors`
+# eval `dircolors ~/.dir_colors`
 
 #
 # Aliases
