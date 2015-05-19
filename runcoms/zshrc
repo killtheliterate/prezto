@@ -100,8 +100,6 @@ function voff() {
   VBoxManage controlvm $DATVM poweroff 
 }
 
-# the silver searcher alias ag="ag --pager 'less -R'"
-
 # do magic AKA start ssh-agent
 SSH_ENV="$HOME/.ssh/environment"
 
@@ -123,3 +121,11 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
+# hatred
+if [ $USER = "garrett" ]; then
+    ulimit -n 2048
+fi
+
+# the silver searcher
+alias ag="ag --pager 'less -R'"
