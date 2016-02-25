@@ -6,13 +6,13 @@ fi
 # chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby ruby-2.1.3
+chruby ruby-2.3.0
 
 # Docker and Boot2Docker
-export bootip=192.168.59.103
-export DOCKER_HOST=tcp://$bootip:2376
-export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
+# export bootip=192.168.59.103
+# export DOCKER_HOST=tcp://$bootip:2376
+# export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
+# export DOCKER_TLS_VERIFY=1
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -132,3 +132,26 @@ alias ag="ag --pager 'less -R'"
 
 # AWS
 # complete -C aws_completer aws
+
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Feed the output of ag into fzf
+# ag -g "" | fzf
+
+# Setting ag as the default source for fzf
+# export FZF_DEFAULT_COMMAND='ag -g ""'
+
+# Now fzf (w/o pipe) will use ag instead of find
+# fzf
+
+# To apply the command to CTRL-T as well
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# VictorOps Docker
+export DOCKER_IP=192.168.99.100
+export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://192.168.99.100:2376"
+export DOCKER_CERT_PATH="$HOME/.docker/machine/machines/vo-dev"
+export DOCKER_MACHINE_NAME="vo-dev"
+export USE_WEBCLIENT=true
+# export WEBCLIENT_PATH=$HOME/Sites/victorops/webclient
