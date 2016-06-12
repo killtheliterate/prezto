@@ -3,6 +3,26 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Stuff
+##############################################################################
+
+# shell
+export SHELL=/bin/zsh
+
+# 10ms for key sequences
+KEYTIMEOUT=1
+
+# hatred
+if [ $USER = "garrett" ]; then
+    ulimit -n 2048
+fi
+
+# vim is the editor
+export EDITOR='nvim'
+
+# Other stuff
+# ----------------------------------------------------------------------------
+
 # GPG
 if [ -f "${HOME}/.gpg-agent-info" ]; then
   . "${HOME}/.gpg-agent-info"
@@ -16,68 +36,56 @@ source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 chruby ruby-2.3.0
 
-# Docker and Boot2Docker
-# export bootip=192.168.59.103
-# export DOCKER_HOST=tcp://$bootip:2376
-# export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
-# export DOCKER_TLS_VERIFY=1
+# Base16 Shell
+case $BASE16_MODE in
+  (*[![:blank:]]*);;
+  (*) BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"; BASE16_MODE=dark;;
+esac
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL && export BASE16_MODE
+
+alias light="source $HOME/.config/nvim/scripts/base16color-switch light"
+alias dark="source $HOME/.config/nvim/scripts/base16color-switch dark"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-# homebrew
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
-
-# VirtualBox & Vagrant
-# PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS
-
-# Composer
-PATH=$PATH:$HOME/.composer/vendor/bin
-
-# Cabal
-PATH=$PATH:$HOME/.cabal/bin
-
-# vim is the editor
-export EDITOR='nvim'
-
-# export PATH
-export PATH
-
-# export MANPATH
-# also, $MANPATH is totally fucked up when using tmux. /usr/local/share/man 
-# and /usr/share/man aren't in the path. (rage)
-MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
-
-export MANPATH
-
-# shell
-export SHELL=/bin/zsh
-
-# 10ms for key sequences
-KEYTIMEOUT=1
-
-# Java
-# export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 # vim
 bindkey '^R' history-incremental-search-backward
 bindkey '^S' history-incremental-search-forward
 bindkey '^P' history-search-backward
 bindkey '^N' history-search-forward
-# bindkey 'jk' vi-cmd-mode
-
 
 # less
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS=" -R"
 
-# Cholores
-# eval `dircolors ~/.dir_colors`
+# Job
+# ----------------------------------------------------------------------------
 
-#
+# VictorOps Docker
+export DOCKER_IP=192.168.99.100
+export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://192.168.99.100:2376"
+export DOCKER_CERT_PATH="$HOME/.docker/machine/machines/vo-dev"
+export DOCKER_MACHINE_NAME="vo-dev"
+export USE_WEBCLIENT=true
+# export WEBCLIENT_PATH=$HOME/Sites/victorops/webclient
+
+# Path
+# ----------------------------------------------------------------------------
+
+# homebrew
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+# Cabal
+PATH=$PATH:$HOME/.cabal/bin
+
+# export PATH
+export PATH
+
 # Aliases
-#
+# ----------------------------------------------------------------------------
 
 alias hiddenon='defaults write com.apple.finder AppleShowAllFiles -boolean true'
 alias hiddenoff='defaults delete com.apple.finder AppleShowAllFiles'
@@ -98,68 +106,5 @@ alias ni='nvim'
 # Vagrant
 alias vssh='TERM=xterm vagrant ssh'
 
-# unsetopt auto_pushd
-function ssht(){
-  ssh $* -t 'tmux a || tmux || /bin/bash'
-}
-
-function voff() {
-  DATVM=`VBoxManage list runningvms | awk '{gsub(/"/, "", $1); print $1}'`
-  VBoxManage controlvm $DATVM poweroff 
-}
-
-# do magic AKA start ssh-agent
-# SSH_ENV="$HOME/.ssh/environment"
-
-# function start_agent {
-#     echo "Initialising new SSH agent..."
-#     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-#     echo succeeded
-#     chmod 600 "${SSH_ENV}"
-#     . "${SSH_ENV}" > /dev/null
-#     /usr/bin/ssh-add;
-# }
-
-# if [ -f "${SSH_ENV}" ]; then
-#     . "${SSH_ENV}" > /dev/null
-#     #ps ${SSH_AGENT_PID} doesn't work under cywgin
-#     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-#         start_agent;
-#     }
-# else
-#     start_agent;
-# fi
-
-# hatred
-if [ $USER = "garrett" ]; then
-    ulimit -n 2048
-fi
-
 # the silver searcher
 alias ag="ag --pager 'less -R'"
-
-# AWS
-# complete -C aws_completer aws
-
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Feed the output of ag into fzf
-# ag -g "" | fzf
-
-# Setting ag as the default source for fzf
-# export FZF_DEFAULT_COMMAND='ag -g ""'
-
-# Now fzf (w/o pipe) will use ag instead of find
-# fzf
-
-# To apply the command to CTRL-T as well
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# VictorOps Docker
-export DOCKER_IP=192.168.99.100
-export DOCKER_TLS_VERIFY="1"
-export DOCKER_HOST="tcp://192.168.99.100:2376"
-export DOCKER_CERT_PATH="$HOME/.docker/machine/machines/vo-dev"
-export DOCKER_MACHINE_NAME="vo-dev"
-export USE_WEBCLIENT=true
-# export WEBCLIENT_PATH=$HOME/Sites/victorops/webclient
