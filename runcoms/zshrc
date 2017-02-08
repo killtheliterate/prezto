@@ -9,6 +9,9 @@ fi
 # shell
 export SHELL=/bin/zsh
 
+# Because iTerm, why?
+# export TERM=xterm-256color-italic
+
 # 10ms for key sequences
 KEYTIMEOUT=1
 
@@ -19,6 +22,8 @@ fi
 
 # vim is the editor
 export EDITOR='nvim'
+
+# export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 # Other stuff
 # ----------------------------------------------------------------------------
@@ -32,19 +37,19 @@ fi
 export GPG_TTY=$(tty)
 
 # chruby
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby ruby-2.3.0
+# source /usr/local/opt/chruby/share/chruby/chruby.sh
+# source /usr/local/opt/chruby/share/chruby/auto.sh
+# chruby ruby-2.3.0
 
 # Base16 Shell
-case $BASE16_MODE in
-  (*[![:blank:]]*);;
-  (*) BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"; BASE16_MODE=dark;;
-esac
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL && export BASE16_MODE
+# case $BASE16_MODE in
+#   (*[![:blank:]]*);;
+#   (*) BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-default-light.sh"; BASE16_MODE=light;;
+# esac
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL && export BASE16_MODE
 
-alias light="source $HOME/.config/nvim/scripts/base16color-switch light"
-alias dark="source $HOME/.config/nvim/scripts/base16color-switch dark"
+# alias light="source $HOME/.config/nvim/scripts/base16color-switch light"
+# alias dark="source $HOME/.config/nvim/scripts/base16color-switch dark"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -107,4 +112,4 @@ alias ni='nvim'
 alias vssh='TERM=xterm vagrant ssh'
 
 # the silver searcher
-alias ag="ag --pager 'less -R'"
+alias ag="ag --pager 'less -R' --width 200"
