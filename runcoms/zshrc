@@ -1,13 +1,147 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# Stuff
+# ----------------------------------------------------------------------------
+
+# shell
+export SHELL=/bin/zsh
+
+# Because iTerm, why?
+# export TERM=xterm-256color-italic
+
+# 10ms for key sequences
+KEYTIMEOUT=1
+
+# hatred
+if [ $USER = "garrett" ]; then
+    ulimit -n 2048
+fi
+
+# vim is the editor
+export EDITOR='nvim'
+
+# export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+
+# Colors
+# ----------------------------------------------------------------------------
+
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+alias dark='base16_gruvbox-dark-hard'
+alias light='base16_gruvbox-light-hard'
+
+# Other stuff
+# ----------------------------------------------------------------------------
+
+# GPG
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+  . "${HOME}/.gpg-agent-info"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+fi
+export GPG_TTY=$(tty)
+
+# export PATH="/usr/local/opt/gpg-agent/bin:$PATH"
+
+
+# chruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+chruby ruby-2.4.1
+
+# Base16 Shell
+# case $BASE16_MODE in
+#   (*[![:blank:]]*);;
+#   (*) BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-default-light.sh"; BASE16_MODE=light;;
+# esac
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL && export BASE16_MODE
+
+# alias light="source $HOME/.config/nvim/scripts/base16color-switch light"
+# alias dark="source $HOME/.config/nvim/scripts/base16color-switch dark"
+
+# nvm
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+# n: Added by n-install (see http://git.io/n-install-repo).
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+# vim
+bindkey '^R' history-incremental-search-backward
+bindkey '^S' history-incremental-search-forward
+bindkey '^P' history-search-backward
+bindkey '^N' history-search-forward
+
+# less
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
+export LESS=" -R"
+
+# Job
+# ----------------------------------------------------------------------------
+
+# VictorOps Docker
+# export DOCKER_IP=192.168.99.100
+# export DOCKER_TLS_VERIFY="1"
+# export DOCKER_HOST="tcp://192.168.99.100:2376"
+# export DOCKER_CERT_PATH="$HOME/.docker/machine/machines/vo-dev"
+# export DOCKER_MACHINE_NAME="vo-dev"
+# export USE_WEBCLIENT=true
+# export WEBCLIENT_PATH=$HOME/Sites/victorops/webclient
+
+# Path
+# ----------------------------------------------------------------------------
+
+# homebrew
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+# Cabal
+PATH=$PATH:$HOME/.cabal/bin
+
+# node
+# PATH=node_modules/.bin:$PATH
+
+# export PATH
+export PATH
+
+# Aliases
+# ----------------------------------------------------------------------------
+
+alias hiddenon='defaults write com.apple.finder AppleShowAllFiles -boolean true'
+alias hiddenoff='defaults delete com.apple.finder AppleShowAllFiles'
+alias dedupe="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+alias 755="find . -type d -print0 | xargs -0 chmod 0755"
+alias 644="find . -type f -print0 | xargs -0 chmod 0644"
+alias dot_cleaner="sudo find / -name ".DS_Store" -depth -exec rm {} \; && dot_clean ~/"
+alias maintenance='sudo periodic daily weekly monthly'
+alias dirs='dirs -v'
+
+# SSH
+alias ssh='TERM=xterm ssh'
+
+# vim
+alias ni='nvim'
+
+# Vagrant
+alias vssh='TERM=xterm vagrant ssh'
+
+# the silver searcher
+alias _ag="ag --pager 'less -R' --width 200"
+
+# Git
+alias vo_staged='git fetch --all -p && git log --oneline --first-parent upstream/master...upstream/development | pbcopy'
+
+# todo
+export TODOTXT_DEFAULT_ACTION=ls
+alias t='todo.sh -d $HOME/.todo.cfg'
+
+# fzf: http://blog.owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+  . ~/.config/exercism/exercism_completion.zsh
+fi
