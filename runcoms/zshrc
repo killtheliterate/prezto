@@ -10,20 +10,18 @@ fi
 export SHELL=/bin/zsh
 
 # Because iTerm, why?
-# export TERM=xterm-256color-italic
+# export TERM=xterm-256color
 
 # 10ms for key sequences
 KEYTIMEOUT=1
 
 # hatred
-if [ $USER = "garrett" ]; then
+if [ $USER = "garrettdawson" ]; then
     ulimit -n 2048
 fi
 
 # vim is the editor
 export EDITOR='nvim'
-
-# export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 # Colors
 # ----------------------------------------------------------------------------
@@ -37,6 +35,20 @@ alias light='base16_gruvbox-light-hard'
 # Other stuff
 # ----------------------------------------------------------------------------
 
+# Codi
+# Usage: codi [filetype] [filename]
+codi() {
+  local syntax="${1:-python}"
+  shift
+  nvim -c \
+    "let g:startify_disable_at_vimenter = 1 |\
+    set bt=nofile ls=0 noru nonu nornu |\
+    hi ColorColumn ctermbg=NONE |\
+    hi VertSplit ctermbg=NONE |\
+    hi NonText ctermfg=0 |\
+    Codi $syntax" "$@"
+}
+
 # GPG
 if [ -f "${HOME}/.gpg-agent-info" ]; then
   . "${HOME}/.gpg-agent-info"
@@ -47,25 +59,13 @@ export GPG_TTY=$(tty)
 
 # export PATH="/usr/local/opt/gpg-agent/bin:$PATH"
 
+# iex
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 # chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby ruby-2.4.1
-
-# Base16 Shell
-# case $BASE16_MODE in
-#   (*[![:blank:]]*);;
-#   (*) BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-default-light.sh"; BASE16_MODE=light;;
-# esac
-# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL && export BASE16_MODE
-
-# alias light="source $HOME/.config/nvim/scripts/base16color-switch light"
-# alias dark="source $HOME/.config/nvim/scripts/base16color-switch dark"
-
-# nvm
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+chruby ruby-2.4.2
 
 # n: Added by n-install (see http://git.io/n-install-repo).
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
@@ -80,17 +80,16 @@ bindkey '^N' history-search-forward
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS=" -R"
 
+# fzf: http://blog.owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+  . ~/.config/exercism/exercism_completion.zsh
+fi
+
 # Job
 # ----------------------------------------------------------------------------
-
-# VictorOps Docker
-# export DOCKER_IP=192.168.99.100
-# export DOCKER_TLS_VERIFY="1"
-# export DOCKER_HOST="tcp://192.168.99.100:2376"
-# export DOCKER_CERT_PATH="$HOME/.docker/machine/machines/vo-dev"
-# export DOCKER_MACHINE_NAME="vo-dev"
-# export USE_WEBCLIENT=true
-# export WEBCLIENT_PATH=$HOME/Sites/victorops/webclient
 
 # Path
 # ----------------------------------------------------------------------------
@@ -98,13 +97,9 @@ export LESS=" -R"
 # homebrew
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-# Cabal
-PATH=$PATH:$HOME/.cabal/bin
-
 # node
 # PATH=node_modules/.bin:$PATH
 
-# export PATH
 export PATH
 
 # Aliases
@@ -131,17 +126,12 @@ alias vssh='TERM=xterm vagrant ssh'
 # the silver searcher
 alias _ag="ag --pager 'less -R' --width 200"
 
+# ripgrep
+alias _rg="rg -g !'*.test.*'"
+
 # Git
 alias vo_staged='git fetch --all -p && git log --oneline --first-parent upstream/master...upstream/development | pbcopy'
 
 # todo
 export TODOTXT_DEFAULT_ACTION=ls
 alias t='todo.sh -d $HOME/.todo.cfg'
-
-# fzf: http://blog.owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-
-if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
-  . ~/.config/exercism/exercism_completion.zsh
-fi
