@@ -65,10 +65,16 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby ruby-2.4.2
+chruby ruby-2.5.0
 
 # n: Added by n-install (see http://git.io/n-install-repo).
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+# google bullshit
+# The next line enables shell command completion for gcloud.
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/g/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/g/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/g/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/g/google-cloud-sdk/completion.zsh.inc'; fi
 
 # vim
 bindkey '^R' history-incremental-search-backward
@@ -97,6 +103,9 @@ fi
 # homebrew
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
+# fucking python
+PATH=/usr/local/opt/python@2/libexec/bin:$PATH
+
 # node
 # PATH=node_modules/.bin:$PATH
 
@@ -115,7 +124,8 @@ alias maintenance='sudo periodic daily weekly monthly'
 alias dirs='dirs -v'
 
 # SSH
-alias ssh='TERM=xterm ssh'
+# alias ssh='TERM=xterm ssh'
+alias ssh='TERM=xterm-256color ssh'
 
 # vim
 alias ni='nvim'
@@ -135,3 +145,10 @@ alias vo_staged='git fetch --all -p && git log --oneline --first-parent upstream
 # todo
 export TODOTXT_DEFAULT_ACTION=ls
 alias t='todo.sh -d $HOME/.todo.cfg'
+
+# alias rgi='rg -i -g '!*/public' console
+
+rgi() {
+  rg -i -g '!*/$1' $2
+}
+
