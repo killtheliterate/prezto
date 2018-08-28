@@ -90,12 +90,23 @@ export LESS=" -R"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 
+# exercism
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
   . ~/.config/exercism/exercism_completion.zsh
 fi
 
+# bash completion: brew install bash-completion
+# [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+# zsh completion: brew install zsh-completion
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 # Job
 # ----------------------------------------------------------------------------
+
+# dre
+#
+# ...just use bash for now
 
 # Path
 # ----------------------------------------------------------------------------
@@ -107,7 +118,7 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 PATH=/usr/local/opt/python@2/libexec/bin:$PATH
 
 # node
-# PATH=node_modules/.bin:$PATH
+PATH=$HOME/n/bin:$PATH
 
 export PATH
 
@@ -152,3 +163,5 @@ rgi() {
   rg -i -g '!*/$1' $2
 }
 
+# added by travis gem
+[ -f /Users/g/.travis/travis.sh ] && source /Users/g/.travis/travis.sh
