@@ -165,3 +165,6 @@ rgi() {
 
 # added by travis gem
 [ -f /Users/g/.travis/travis.sh ] && source /Users/g/.travis/travis.sh
+
+# # # zsh-completion
+fpath=(/usr/local/share/zsh-completions $fpath)
