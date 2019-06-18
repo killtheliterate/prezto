@@ -9,16 +9,8 @@ fi
 # shell
 export SHELL=/bin/zsh
 
-# Because iTerm, why?
-# export TERM=xterm-256color
-
 # 10ms for key sequences
 KEYTIMEOUT=1
-
-# hatred
-if [ $USER = "garrettdawson" ]; then
-    ulimit -n 2048
-fi
 
 # vim is the editor
 export EDITOR='nvim'
@@ -34,20 +26,6 @@ alias light='base16_gruvbox-light-hard'
 
 # Other stuff
 # ----------------------------------------------------------------------------
-
-# Codi
-# Usage: codi [filetype] [filename]
-codi() {
-  local syntax="${1:-python}"
-  shift
-  nvim -c \
-    "let g:startify_disable_at_vimenter = 1 |\
-    set bt=nofile ls=0 noru nonu nornu |\
-    hi ColorColumn ctermbg=NONE |\
-    hi VertSplit ctermbg=NONE |\
-    hi NonText ctermfg=0 |\
-    Codi $syntax" "$@"
-}
 
 # GPG
 if [ -f "${HOME}/.gpg-agent-info" ]; then
@@ -73,8 +51,8 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 # google bullshit
 # The next line enables shell command completion for gcloud.
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/g/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/g/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/Users/g/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/g/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then source "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then source "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
 
 # vim
 bindkey '^R' history-incremental-search-backward
@@ -87,26 +65,15 @@ export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS=" -R"
 
 # fzf: http://blog.owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before
+# fzf + ripgrep
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-
-# exercism
-if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
-  . ~/.config/exercism/exercism_completion.zsh
-fi
 
 # bash completion: brew install bash-completion
 # [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 # zsh completion: brew install zsh-completion
 fpath=(/usr/local/share/zsh-completions $fpath)
-
-# Job
-# ----------------------------------------------------------------------------
-
-# dre
-#
-# ...just use bash for now
 
 # Path
 # ----------------------------------------------------------------------------
@@ -120,19 +87,22 @@ PATH=/usr/local/opt/python@2/libexec/bin:$PATH
 # node
 PATH=$HOME/n/bin:$PATH
 
+# yarn
+PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# coreutils aka gnu stuff https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
+# PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
 export PATH
 
 # Aliases
 # ----------------------------------------------------------------------------
 
-alias hiddenon='defaults write com.apple.finder AppleShowAllFiles -boolean true'
-alias hiddenoff='defaults delete com.apple.finder AppleShowAllFiles'
 alias dedupe="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
-alias 755="find . -type d -print0 | xargs -0 chmod 0755"
-alias 644="find . -type f -print0 | xargs -0 chmod 0644"
 alias dot_cleaner="sudo find / -name ".DS_Store" -depth -exec rm {} \; && dot_clean ~/"
+alias hiddenoff='defaults delete com.apple.finder AppleShowAllFiles'
+alias hiddenon='defaults write com.apple.finder AppleShowAllFiles -boolean true'
 alias maintenance='sudo periodic daily weekly monthly'
-alias dirs='dirs -v'
 
 # SSH
 # alias ssh='TERM=xterm ssh'
@@ -149,22 +119,8 @@ alias _ag="ag --pager 'less -R' --width 200"
 
 # ripgrep
 alias _rg="rg -g !'*.test.*'"
-
-# Git
-alias vo_staged='git fetch --all -p && git log --oneline --first-parent upstream/master...upstream/development | pbcopy'
-
-# todo
-export TODOTXT_DEFAULT_ACTION=ls
-alias t='todo.sh -d $HOME/.todo.cfg'
-
 # alias rgi='rg -i -g '!*/public' console
 
 rgi() {
   rg -i -g '!*/$1' $2
 }
-
-# added by travis gem
-[ -f /Users/g/.travis/travis.sh ] && source /Users/g/.travis/travis.sh
-
-# # # zsh-completion
-fpath=(/usr/local/share/zsh-completions $fpath)
