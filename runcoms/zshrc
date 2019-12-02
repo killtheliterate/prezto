@@ -34,7 +34,6 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
   export SSH_AUTH_SOCK
 fi
 export GPG_TTY=$(tty)
-
 # export PATH="/usr/local/opt/gpg-agent/bin:$PATH"
 
 # iex
@@ -44,6 +43,9 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 chruby ruby-2.5.0
+
+# pyenv 
+PYENV_ROOT="$HOME/.pyenv"
 
 # n: Added by n-install (see http://git.io/n-install-repo).
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
@@ -79,19 +81,22 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # ----------------------------------------------------------------------------
 
 # homebrew
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
-# fucking python
-PATH=/usr/local/opt/python@2/libexec/bin:$PATH
+# python
+PATH="$PYENV_ROOT/bin:$PATH"
 
 # node
-PATH=$HOME/n/bin:$PATH
+PATH="$HOME/n/bin:$PATH"
 
 # yarn
-PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # coreutils aka gnu stuff https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
 # PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
+# terraform
+PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
 
 export PATH
 
@@ -120,8 +125,10 @@ alias _ag="ag --pager 'less -R' --width 200"
 # ripgrep
 alias _rg="rg -g !'*.test.*'"
 # alias rgi='rg -i -g '!*/public' console
-
 rgi() {
   rg -i -g '!*/$1' $2
 }
-export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
+
+# init py
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
