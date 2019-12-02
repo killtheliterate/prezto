@@ -124,3 +124,4 @@ alias _rg="rg -g !'*.test.*'"
 rgi() {
   rg -i -g '!*/$1' $2
 }
+export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
