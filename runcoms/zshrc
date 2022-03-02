@@ -13,7 +13,7 @@ export SHELL=/bin/zsh
 KEYTIMEOUT=1
 
 # vim is the editor
-export EDITOR='nvim'
+export EDITOR='vim'
 
 # Colors
 # ----------------------------------------------------------------------------
@@ -44,17 +44,11 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby ruby-2.6.5
-
-# pyenv 
-PYENV_ROOT="$HOME/.pyenv"
-
-# n: Added by n-install (see http://git.io/n-install-repo).
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+chruby ruby-3.0.1
 
 # gcp
-if [ -f '/Users/g/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/g/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/Users/g/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/g/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'; fi
 
 # vim
 bindkey '^R' history-incremental-search-backward
@@ -83,10 +77,18 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # homebrew
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
 # python
 PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
+# eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# n: Added by n-install (see http://git.io/n-install-repo).
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
 # node
 PATH="$HOME/n/bin:$PATH"
@@ -100,6 +102,9 @@ PATH="$HOME/n/bin:$PATH"
 # terraform
 PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
 
+# java
+PATH="/usr/local/opt/openjdk@8/bin:$PATH"
+
 export PATH
 
 # Aliases
@@ -107,11 +112,11 @@ export PATH
 
 alias dedupe="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 alias dot_cleaner="sudo find / -name ".DS_Store" -depth -exec rm {} \; && dot_clean ~/"
-alias hiddenoff='defaults delete com.apple.finder AppleShowAllFiles'
-alias hiddenon='defaults write com.apple.finder AppleShowAllFiles -boolean true'
+alias hiddenoff='defaults delete com.apple.finder AppleShowAllFiles && killall Finder'
+alias hiddenon='defaults write com.apple.finder AppleShowAllFiles -boolean true && killall Finder'
 alias maintenance='sudo periodic daily weekly monthly'
 
-# SSH
+# ssh
 # alias ssh='TERM=xterm ssh'
 alias ssh='TERM=xterm-256color ssh'
 
@@ -124,6 +129,9 @@ alias vssh='TERM=xterm vagrant ssh'
 # the silver searcher
 alias _ag="ag --pager 'less -R' --width 200"
 
+# moosekali
+alias KALI='docker run -h kali --rm -it -v $(pwd):/work us.gcr.io/randori-202718/moosekali:latest tmux'
+
 # ripgrep
 alias _rg="rg -g !'*.test.*'"
 # alias rgi='rg -i -g '!*/public' console
@@ -131,5 +139,4 @@ rgi() {
   rg -i -g '!*/$1' $2
 }
 
-# Moose Kali
-alias KALI='docker run -h kali --rm -it -v $(pwd):/work us.gcr.io/randori-202718/moosekali:latest tmux'
+export PATH=/Users/gdawsonrandori.com/Repos/skycrane/bin:$PATH
