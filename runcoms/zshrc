@@ -69,7 +69,14 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,
 # [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 # zsh completion: brew install zsh-completion
-fpath=(/usr/local/share/zsh-completions $fpath)
+# fpath=(/usr/local/share/zsh-completions $fpath)
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 # Path
 # ----------------------------------------------------------------------------
@@ -140,3 +147,5 @@ rgi() {
 }
 
 export PATH=/Users/gdawsonrandori.com/Repos/skycrane/bin:$PATH
+
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
