@@ -7,19 +7,19 @@
 Prezto will work with any recent release of Zsh, but the minimum required
 version is **4.3.11**.
 
-01. Launch Zsh:
+## launch:
 
     ```console
     zsh
     ```
 
-02. Clone the repository:
+### clone:
 
     ```console
     git clone --recursive git@github.com:killtheliterate/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
     ```
 
-03. Link configurations:
+### symlink:
 
     ```console
     setopt EXTENDED_GLOB
@@ -36,9 +36,16 @@ version is **4.3.11**.
     back up your original configs and replace them with the provided Prezto
     [_`runcoms`_][10].
 
-04. Set Zsh as your default shell:
+### default:
 
     ```console
     chsh -s /bin/zsh
     ```
 
+### etc::
+
+* install [pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
+* install [chruby](https://github.com/postmodern/chruby?tab=readme-ov-file#install)
+* install [ruby-install](https://github.com/postmodern/ruby-install?tab=readme-ov-file#install)
+* install [n](https://github.com/tj/n?tab=readme-ov-file#installation)
+* install [base16-shell](https://github.com/chriskempson/base16-shell)

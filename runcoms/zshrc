@@ -17,15 +17,25 @@ export EDITOR='vim'
 # Colors
 # ----------------------------------------------------------------------------
 
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        source "$BASE16_SHELL/profile_helper.sh"
+# BASE16_SHELL="$HOME/.config/base16-shell/"
+# [ -n "$PS1" ] && \
+#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#         source "$BASE16_SHELL/profile_helper.sh"
 
-alias dark='base16_gruvbox-dark-hard'
-alias light='base16_gruvbox-light-hard'
-alias dark-soft='base16_gruvbox-dark-soft'
-alias light-soft='base16_gruvbox-light-soft'
+# alias dark='base16_gruvbox-dark-hard'
+# alias light='base16_gruvbox-light-hard'
+# alias dark-soft='base16_gruvbox-dark-soft'
+# alias light-soft='base16_gruvbox-light-soft'
+
+# @NOTE: https://rrethy.github.io/book/colorscheme.html
+# export BASE16_KITTY="${HOME}/.config/base16-kitty"
+# export BASE16_THEME="${HOME}/.config/base16_theme"
+# eval "kitty @ set-colors -c $BASE16_KITTY/colors/$(cat $BASE16_THEME).conf"
+
+# kitty
+# kitten themes --reload-in=all Catppuccin-Frappe
+# tmux
+# set -g @catppuccin_flavour 'frappe'
 
 # @see: https://github.com/zsh-users/zsh-autosuggestions#suggestion-highlight-style
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
@@ -54,9 +64,14 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # chruby
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
-chruby ruby-3.1.2
+if [[ "$OSTYPE" == darwin* ]]; then
+  source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+  source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+else
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
+fi
+chruby ruby
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -94,6 +109,10 @@ PATH="$PYENV_ROOT/bin:$PATH"
 # node
 PATH="$HOME/n/bin:$PATH"
 
+# deno
+DENO_INSTALL="/Users/g/.deno"
+PATH="$DENO_INSTALL/bin:$PATH"
+
 # go
 GOPATH="$HOME/go"
 PATH="$GOPATH/bin:$PATH"
@@ -120,6 +139,8 @@ alias ssh='TERM=xterm-256color ssh'
 
 # vim
 alias ni='nvim'
+alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart-modular" nvim'
+alias nii='NVIM_APPNAME="nvim-kickstart-modular" nvim'
 
 # Vagrant
 alias vssh='TERM=xterm vagrant ssh'
