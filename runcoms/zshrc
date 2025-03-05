@@ -1,3 +1,11 @@
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
+
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
@@ -79,6 +87,20 @@ export PYENV_ROOT="$HOME/.pyenv"
 # n: Added by n-install (see http://git.io/n-install-repo).
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
+# jump
+eval "$(jump shell)"
+
+# direnv
+# eval "$(direnv hook zsh)"
+alias denv='eval "$(direnv hook zsh)" && direnv allow'
+# alias direnv-disable='unset -f direnv'
+
+# starship
+# eval "$(starship init zsh)"
+
+# pyenv
+eval "$(pyenv init -)"
+
 # binds
 # ----------------------------------------------------------------------------
 
@@ -120,9 +142,20 @@ PATH="$GOPATH/bin:$PATH"
 # skycrane
 PATH="$HOME/repos/skycrane/bin:$PATH"
 
-export PATH
+# Postgres.app
+PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
-eval "$(pyenv init -)"
+# asdf
+export ASDF_DATA_DIR="$HOME/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/g/.cache/lm-studio/bin"
+
+# Added by Windsurf
+export PATH="/Users/g/.codeium/windsurf/bin:$PATH"
+
+export PATH
 
 # Aliases
 # ----------------------------------------------------------------------------
@@ -154,3 +187,6 @@ alias _rg="rg -g !'*.test.*'"
 rgi() {
   rg -i -g '!*/$1' $2
 }
+
+# ls
+alias ls="ls --color=auto"
